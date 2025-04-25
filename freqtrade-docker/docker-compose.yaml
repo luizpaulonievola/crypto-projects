@@ -1,0 +1,36 @@
+---
+version: '3'
+services:
+  bot_b_ia:
+    image: freqtrade_ia
+    restart: on-failure
+    container_name: bot_binance_ia
+    volumes:
+      - "./user_data:/freqtrade/user_data"
+    ports:
+     - "0.0.0.0:9092:8080"
+    networks:
+      - default
+    command: >
+      trade
+      -c user_data/config-exchange-general.json
+      --logfile /freqtrade/user_data/logs/bot_binance_ia.log
+      --db-url sqlite:////freqtrade/user_data/sqlite/bot_binance_ia.sqlite
+      -c /freqtrade/user_data/bot_binance_ia.json
+      -c user_data/pair_lists/pairlist-volume-usdt.json
+      -c user_data/pair_lists/blacklist-binance.json
+      -c user_data/pair_lists/api_binance.json
+      -c user_data/config-telegram-general.json
+      -s TS_Gain
+      -c user_data/strategies/TS_Gain.json
+      --dry-run-wallet 100
+    cpus: 2.0
+    mem_limit: 5G
+
+  binance_proxy:
+    image: nightshift2k/binance-proxy:latest
+    container_name: binance_proxy
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8090:8080"
+    cpus: 2.0

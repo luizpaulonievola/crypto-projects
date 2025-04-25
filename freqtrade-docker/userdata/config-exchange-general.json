@@ -1,0 +1,49 @@
+{
+    "$schema": "https://schema.freqtrade.io/schema.json",
+    "stake_currency": "USDT",
+    "max_open_trades": 6,
+    "fiat_display_currency": "BRL",
+    "dry_run_wallet": 100,
+    //"use_exit_signal": true,
+    //"exit_profit_only": false,
+    //"ignore_roi_if_entry_signal": false,
+    "cancel_open_orders_on_exit": false,  
+    "unfilledtimeout": {
+        "entry": 10,
+        "exit": 10,
+        "exit_timeout_count": 0,
+        "unit": "minutes"
+    },
+    //"order_time_in_force": {
+    //    "entry": "gtc",
+    //    "exit": "gtc"
+    //},
+    "entry_pricing": {
+        "order_book_top": 1,
+        "price_last_balance": 0.0,
+        "check_depth_of_market": {
+          "enabled": false,
+          "bids_to_ask_delta": 1
+        }
+  },
+    "exit_pricing": {
+        "use_order_book": true,
+        "order_book_top": 1
+  },
+    "api_server": {
+        "listen_ip_address": "0.0.0.0",  
+        "CORS_origins": ["http://x.x.x.x:9091"],
+        "password": "password",
+        "verbosity": "error",
+    },
+    "dataformat_ohlcv": "feather",
+    "dataformat_trades": "feather",
+    
+    "initial_state": "running",
+    "force_entry_enable": false,
+    "internals": {
+        "process_throttle_secs": 5,
+        "heartbeat_interval": 60
+    },
+    //"download_trades": true
+}
